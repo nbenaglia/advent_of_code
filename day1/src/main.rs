@@ -21,24 +21,36 @@ fn count_increments(values: &[i64]) -> i32 {
 }
 
 fn count_increments_three_measurement_sliding_window(values: &[i64]) -> i32 {
-    const SLIDING_WINDOW: i32 = 3;
-    let mut window: [i64; 3] = values[0..SLIDING_WINDOW];
-    let window_sum = &values[0] + &values[1] + &values[2];
-
+    let mut window: [i64; 3] = [values[0], values[1], values[2]];
     let mut increments = 0;
-    
-    for read in &values[3..] {
-        let counter = 0;
-        let current_window =
-        if counter == 3 {
-            if read > &window_sum {
+
+    let mut counter = 0;
+    let mut current_window: [i64; 3] = [0, 0, 0];
+
+    println!("{:?}", window);
+
+    for read in &values[1..] {
+        current_window[counter] = *read;
+        if counter == 2 {
+            if compare_window(&current_window, &window) {
                 increments += 1;
-            };
-            window = *read;
+            }
+            counter = 0;
+            println!("previous window {:?}", window);
+            println!("current window {:?}", current_window);
+            window = current_window;
+            current_window = [0, 0, 0];
+        } else {
+            counter += 1;
         }
     }
-    
+
     return increments;
+}
+
+fn compare_window(current_window: &[i64], previous_window: &[i64]) -> bool {
+    return (current_window[0] + current_window[1] + current_window[2])
+        > (previous_window[0] + previous_window[1] + previous_window[2]);
 }
 
 fn main() -> Result<(), Error> {
