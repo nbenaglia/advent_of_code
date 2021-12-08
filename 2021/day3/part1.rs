@@ -1,5 +1,7 @@
 static INPUT_FILE: &'static str = include_str!("input.txt");
 
+const BIT_LENGTH: u32 = 12;
+
 fn get_decimal_numbers() -> Vec<u16> {
     return INPUT_FILE
         .split_ascii_whitespace()
@@ -16,10 +18,10 @@ fn main() {
     let numbers = get_decimal_numbers();
     let mask: u16 = 0x0FFF;
     let half_total = numbers.len() / 2;
-    let mut counts: [usize; 12] = [0; 12];
+    let mut counts: [usize; BIT_LENGTH] = [0; BIT_LENGTH];
 
     for number in numbers {
-        for position in 0..12 {
+        for position in 0..BIT_LENGTH {
             if bit_matching(number, position, 1) {
                 counts[position] += 1;
             }
