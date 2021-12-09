@@ -1,5 +1,7 @@
 static INPUT_FILE: &'static str = include_str!("input.txt");
 
+const BIT_LENGTH: usize = 12;
+
 fn get_decimal_numbers() -> Vec<u16> {
     return INPUT_FILE
         .split_ascii_whitespace()
@@ -20,8 +22,8 @@ fn main() {
 
     fn compute_rating(search: BitSearch) -> u16 {
         let mut numbers = get_decimal_numbers();
-        let mut counts: [usize; 12] = [0; 12];
-        let mut position = 12;
+        let mut counts: [usize; BIT_LENGTH] = [0; BIT_LENGTH];
+        let mut position = BIT_LENGTH;
 
         while numbers.len() > 1 {
             position -= 1;
@@ -74,7 +76,7 @@ fn main() {
     println!("Oxygen generator rating: {}", oxygen_generator_rating);
     println!("CO2 scrubber rating: {}", co2_scrubber_rating);
     println!(
-        "Multiplied together: {}",
+        "Multiplied: {}",
         oxygen_generator_rating as u64 * co2_scrubber_rating as u64
     );
 }
