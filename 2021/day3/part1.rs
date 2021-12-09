@@ -1,6 +1,6 @@
 static INPUT_FILE: &'static str = include_str!("input.txt");
 
-const BIT_LENGTH: u32 = 12;
+const BIT_LENGTH: usize = 12;
 
 fn get_decimal_numbers() -> Vec<u16> {
     return INPUT_FILE
